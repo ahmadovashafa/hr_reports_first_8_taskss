@@ -1,0 +1,59 @@
+--hr reparts 
+
+/*Task 1: Generate a report that lists all employees along with their respective job
+titles and department names.*/
+
+select e.first_name,e.last_name,d.department_name,j.job_title
+from employees  e 
+join departments d on e.department_id=d.department_id
+join jobs j on e.job_id=j.job_id;
+
+/*. Task 2: Create a report that displays the total number of employees in each
+department.
+*/
+
+select  d.department_name,count(e.employee_id) as emp_counts
+from employees e 
+join departments d on  e.department_id=d.department_id
+group by d.department_name;
+
+/*Task 3: Generate a report that shows the average salary for each job title.
+*/
+select avg(e.salary),j.job_title
+from employees e
+join jobs j on e.job_id=j.job_id
+group by job_title;
+
+/* Task 4: Create a report that calculates the total salary budget 
+for each department.
+*/
+
+select sum(e.salary) as total_salary,d.department_name
+from employees e
+join departments d on e.department_id=d.department_id
+group by department_name;
+
+/*Task 5: Generate a report that lists the top 5 highest-paid employees, 
+including theirnames, salaries, and job titles.*/
+
+select e.first_name,e.salary,j.job_title
+from employees e join jobs j on e.job_id=j.job_id
+order by e.salary desc
+fetch next 5 rows only;
+
+/*6. Task 6: Create a report that displays the number of employees hired each year.*/
+
+select hire_date, count(*) from employees
+group by  hire_date;
+
+/*Task 7: Generate a report that shows the average salary for employees based on
+their job grade.*/
+
+select j.job_id, avg(e.salary) as average_salary
+from employees e join jobs j on e.job_id=j.job_id
+group by j.job_id;
+
+/*Task 8: Create a report that lists all employees who have a higher salary 
+than their respective department's average salary. */
+
+---
